@@ -52,12 +52,11 @@ jobs:
 
     - name: Build dependencies
       run: |
-        git clone --recursive https://github.com/tinyobjloader/tinyobjloader.git
-        cd tinyobjloader
+        cd libs/tinyobjloader
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)
         cd bin; sudo make install -j$(nproc)
-        cd ../../
+        cd ../../../
 
     - name: Format
       run: |
