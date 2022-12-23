@@ -48,11 +48,9 @@ jobs:
         cd bin; sudo make install -j$(nproc)
         cd ../../
 
-    - name: Lint
+    - name: Format
       run: |
-        cd src/scripts
         python3 src/scripts/format.py
-        cd ../../
 
     - name: Build
       run: |
