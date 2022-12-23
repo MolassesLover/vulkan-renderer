@@ -24,6 +24,7 @@ jobs:
           libglfw3-dev \
           libglm-dev \
           libsdl2-dev \
+          libstb-dev \
           libvulkan-dev \
           python3 \
           uncrustify
