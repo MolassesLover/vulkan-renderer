@@ -54,7 +54,8 @@ jobs:
       run: |
         git clone --recursive https://github.com/tinyobjloader/tinyobjloader.git
         cd tinyobjloader
-        cmake -B bin -DCMAKE_BUILD_TYPE=Release; cmake --build bin -j$(nproc)
+        cmake -B bin -DCMAKE_BUILD_TYPE=Release
+        cmake --build bin -j$(nproc)
         cd bin; sudo make install -j$(nproc)
         cd ../../
 
@@ -67,6 +68,10 @@ jobs:
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)
 
+    - name: Run
+      run: |
+        cd bin; ./TEMPORARYNAMEHEADLESS; cd ../
+  
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:

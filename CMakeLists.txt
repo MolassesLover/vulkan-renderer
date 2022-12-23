@@ -17,18 +17,23 @@ if(NOT STB_INCLUDEDIR)
   message(FATAL_ERROR "Unable to find the stb_image.h header!")
 endif()
 
-set(SOURCE_FILES src/main.cpp)
+set(MAIN src/main.cpp)
+set(MAIN_HEADLESS src/main_headless.cpp)
 
 set(HEADER_FILES src/include/TEMPORARYNAME.h src/include/vulkan_interface.hpp)
 
 include_directories(src/include ${glfw_INCLUDE_DIRS} ${glm_INCLUDE_DIRS}
                     ${tinyobjloader_INCLUDE_DIRS})
 
-add_executable(TEMPORARYNAME ${SOURCE_FILES})
-add_library(TEMPORARYNAMELIB SHARED ${SOURCE_FILES})
+add_executable(TEMPORARYNAME ${MAIN} ${HEADER_FILES})
+add_executable(TEMPORARYNAMEHEADLESS ${MAIN_HEADLESS} ${HEADER_FILES})
+add_library(TEMPORARYNAMELIB SHARED ${HEADER_FILES})
 set_target_properties(TEMPORARYNAMELIB PROPERTIES OUTPUT_NAME "TEMPORARYNAME")
+set_target_properties(TEMPORARYNAMELIB PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(TEMPORARYNAME glfw ${tinyobjloader_LIBRARIES}
+                      ${Vulkan_LIBRARIES})
+target_link_libraries(TEMPORARYNAMEHEADLESS glfw ${tinyobjloader_LIBRARIES}
                       ${Vulkan_LIBRARIES})
 
 add_custom_command(

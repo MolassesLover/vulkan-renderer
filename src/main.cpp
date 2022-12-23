@@ -2,6 +2,8 @@
 #include "include/vulkan_interface.hpp"
 
 int main() {
+    std::cout << "Running TEMPORARYNAME!" << '\n';
+
     VulkanApplication app;
 
     try {
