@@ -62,6 +62,10 @@ def main():
 
     try:
         subprocess.run("cmake-format CMakeLists.txt -o CMakeLists.txt", shell=True)
+        subprocess.run(
+            "uncrustify -c ./.uncrustify.config --no-backup --replace src/shaders/*",
+            shell=True,
+        )
 
         format(
             command=f"prettier --write --parser json",
