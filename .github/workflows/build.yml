@@ -57,16 +57,9 @@ jobs:
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)
 
-    - name: Get modified files
-      id: modified-files
-      run: echo "::set-output name=all_modified_files::$(git status --porcelain | sed s/^...// | sed -z 's/\n/%0A/g;s/%0A$/\n/')"
     - name: Commit and push changes
-      if: ${{ steps.modified-files.outputs.all_modified_files }}
-      uses: swinton/commit@v2.x
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        files: |
-          ${{ steps.modified-files.outputs.all_modified_files }}
+        add_options: '-A'
         commit-message: 'Automated changes!'
         ref: ${{ github.ref }}
