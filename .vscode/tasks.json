@@ -4,7 +4,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "cd src/scripts && python3 lint.py && cd ../../ && cmake -B bin -DCMAKE_BUILD_TYPE=Release && cmake --build bin -j$(nproc)",
+            "command": "python3 src/scripts/format.py && cmake -B bin -DCMAKE_BUILD_TYPE=Release && cmake --build bin -j$(nproc)",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -15,9 +15,9 @@
             }
         },
         {
-            "label": "Lint",
+            "label": "Format",
             "type": "shell",
-            "command": "cd src/scripts && python3 lint.py",
+            "command": "python3 src/scripts/format.py",
             "problemMatcher": [
                 "$uncrustify"
             ],

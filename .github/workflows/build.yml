@@ -28,7 +28,17 @@ jobs:
           libstb-dev \
           libvulkan-dev \
           python3 \
-          uncrustify
+          python3-pip \
+          uncrustify \
+        
+        sudo snap install go --classic
+        sudo snap install shfmt
+
+        pip install black
+
+        npm install -g prettier
+
+        go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 
     - name: Build dependencies
       run: |
@@ -41,7 +51,7 @@ jobs:
     - name: Lint
       run: |
         cd src/scripts
-        python3 lint.py
+        python3 src/scripts/format.py
         cd ../../
 
     - name: Build
