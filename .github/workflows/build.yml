@@ -62,4 +62,3 @@ jobs:
       with:
         add_options: '-A'
         commit-message: 'Automated changes!'
-        ref: ${{ github.ref }}
