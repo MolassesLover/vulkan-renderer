@@ -90,7 +90,7 @@ def main():
         format(
             command=f"uncrustify -c ./.uncrustify.config --no-backup --replace",
             extension="h",
-            language="C",
+            language="C Header",
             sourcePath="src/",
             output=useOutput,
             fileAmount=allFiles,
@@ -106,7 +106,7 @@ def main():
         format(
             command=f"uncrustify -c ./.uncrustify.config --no-backup --replace",
             extension="hpp",
-            language="H++",
+            language="C++ Header",
             sourcePath="src/",
             output=useOutput,
             fileAmount=allFiles,
