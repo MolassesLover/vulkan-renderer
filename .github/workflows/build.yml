@@ -61,4 +61,4 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         add_options: '-A'
-        commit-message: 'Automated changes!'
+        commit_message: 'Automated changes!'
