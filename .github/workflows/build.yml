@@ -19,7 +19,22 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libglfw3-dev libvulkan-dev libsdl2-dev libglm-dev uncrustify cmake python3 valgrind
+        sudo apt-get install \
+          cmake \
+          libglfw3-dev \ 
+          libglm-dev \
+          libsdl2-dev \
+          libvulkan-dev \
+          python3 \
+          uncrustify
+
+    - name: Build dependencies
+      run: |
+        git clone --recursive https://github.com/tinyobjloader/tinyobjloader.git
+        cd tinyobjloader
+        cmake -B bin -DCMAKE_BUILD_TYPE=Release; cmake --build bin -j$(nproc)
+        cd bin; sudo make install -j$(nproc)
+        cd ../../
 
     - name: Lint
       run: |
