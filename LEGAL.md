@@ -2,9 +2,8 @@
 
 ## About
 
-Original license files sourced from Git repositories,  
-created by copyright holders other than me- can
-be found within the [`docs/txt/`](docs/txt) directory.
+Original license files sourced from Git repositories, created by copyright holders
+other than me, can be found within the [`docs/txt/`](docs/txt) directory.
 
 ----------------------------------------------------
 
