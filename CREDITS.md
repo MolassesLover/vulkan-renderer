@@ -15,14 +15,14 @@ teaching me CMake, and Vulkan initialisation.
 [Vulkan tutorial](https://github.com/Overv/VulkanTutorial) was what made
 learning Vulkan a conceivable, achievable, and coherent goal for me.
 
+A massive thank you to the dozens of talented
+[contributors](https://github.com/Overv/VulkanTutorial/graphs/contributors) 
+to that project, as well. 
+
 [@Mori-TM](https://github.com/Mori-TM)'s 
 [expansion](https://github.com/Mori-TM/Vulkan-Tutorial-Advanced) upon the original 
 [Vulkan tutorial](https://github.com/Overv/VulkanTutorial) project 
 provided great reference regarding the handling of multiple textures.
-
-A massive thank you to the dozens of talented
-[contributors](https://github.com/Overv/VulkanTutorial/graphs/contributors) 
-to that project, as well. 
 
 ## Assets
 
