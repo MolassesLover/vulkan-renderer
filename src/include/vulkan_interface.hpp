@@ -789,9 +789,12 @@ void initVulkan() {
     createSyncObjects();
 }
 
+virtual void update() {}
+
 void mainLoop() {
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+        update();
         drawFrame();
     }
 
