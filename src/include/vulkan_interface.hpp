@@ -789,7 +789,8 @@ void initVulkan() {
     createSyncObjects();
 }
 
-virtual void update() {}
+virtual void update() {
+}
 
 void mainLoop() {
     while (!glfwWindowShouldClose(window)) {
