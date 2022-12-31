@@ -13,14 +13,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      contents: read
+      actions: write
+      contents: write
       security-events: write
 
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python' ]
+        language: [ 'python', 'lua']
 
 
     steps:
@@ -53,6 +53,15 @@ jobs:
 
     - name: Build dependencies
       run: |
+        git clone --recursive https://github.com/Koihik/LuaFormatter.git
+        cd LuaFormatter
+        cmake -B bin -DCMAKE_BUILD_TYPE=Release
+        cmake --build bin -j$(nproc)
+        cd bin
+        sudo make install -j$(nproc)
+        cd ../../
+        rm -fr LuaFormatter
+
         cd libs/tinyobjloader
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)

@@ -84,6 +84,14 @@ def main():
             fileAmount=allFiles,
         )
         format(
+            command=f"lua-forma",
+            extension="lua",
+            language="Lua",
+            sourcePath="src/",
+            output=useOutput,
+            fileAmount=allFiles,
+        )
+        format(
             command=f"uncrustify -c ./.uncrustify.config --no-backup --replace",
             extension="c",
             language="C",
