@@ -160,5 +160,5 @@ dmypy.json
 cython_debug/
 
 # Bindings
-src/bindings/vkRenderer_python.cpp
+src/bindings/vkRenderer_*.cpp
 src/bindings/TEMPORARYNAME.py

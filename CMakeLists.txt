@@ -17,13 +17,16 @@ if(NOT STB_INCLUDEDIR)
   message(FATAL_ERROR "Unable to find the stb_image.h header!")
 endif()
 
-if(bindings)
-    find_package(Python3 COMPONENTS Interpreter Development)
+if(python_bindings)
+  find_package(Python3 COMPONENTS Interpreter Development)
 
-    include_directories(
-        ${Python3_INCLUDE_DIRS}
-    )
+  include_directories(${Python3_INCLUDE_DIRS})
+endif()
 
+if(lua_bindings)
+  find_package(Lua COMPONENTS Interpreter Development)
+
+  include_directories(${Lua_INCLUDE_DIRS})
 endif()
 
 set(MAIN src/main.cpp)
@@ -34,10 +37,12 @@ set(HEADER_FILES src/include/TEMPORARYNAME.h src/include/vulkan_interface.hpp)
 set(CMAKE_SHARED_LIBRARY_PREFIX "_")
 set(CMAKE_STATIC_LIBRARY_PREFIX "_")
 
-if(bindings)
-    set(BINDING_FILES
-      src/bindings/vkRenderer_python.cpp
-    )
+if(python_bindings)
+  set(BINDING_FILES src/bindings/vkRenderer_python.cpp)
+endif()
+
+if(lua_bindings)
+  set(BINDING_FILES src/bindings/vkRenderer_lua.cpp)
 endif()
 
 include_directories(src/include ${glfw_INCLUDE_DIRS} ${glm_INCLUDE_DIRS}
@@ -47,9 +52,10 @@ add_executable(TEMPORARYNAME ${MAIN} ${HEADER_FILES})
 add_executable(TEMPORARYNAMEHEADLESS ${MAIN_HEADLESS} ${HEADER_FILES})
 
 if(bindings)
-    add_library(TEMPORARYNAMELIB SHARED ${SOURCE_FILES} ${HEADER_FILES} ${BINDING_FILES})
+  add_library(TEMPORARYNAMELIB SHARED ${SOURCE_FILES} ${HEADER_FILES}
+                                      ${BINDING_FILES})
 else()
-    add_library(TEMPORARYNAMELIB SHARED ${SOURCE_FILES} ${HEADER_FILES})
+  add_library(TEMPORARYNAMELIB SHARED ${SOURCE_FILES} ${HEADER_FILES})
 endif()
 
 set_target_properties(TEMPORARYNAMELIB PROPERTIES OUTPUT_NAME "TEMPORARYNAME")

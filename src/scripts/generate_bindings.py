@@ -1,24 +1,29 @@
 #!/bin/python3
 
-#region Modules
+# region Modules
 
 import argparse
 import os
 import subprocess
 
-#endregion
+# endregion
 
-#region Functions
+# region Functions
+
 
 def GenerateBindings():
     print(f"Generating bindings for {arguments.language}")
-    subprocess.run(f"cd ../bindings; swig -{arguments.language} -c++ -o vkRenderer_{arguments.language}.cpp  TEMPORARYNAMELIB.i", shell=True)
+    subprocess.run(
+        f"cd ../bindings; swig -{arguments.language} -c++ -o vkRenderer_{arguments.language}.cpp  TEMPORARYNAMELIB.i",
+        shell=True,
+    )
 
-#endregion
 
-if __name__  == '__main__':
+# endregion
+
+if __name__ == "__main__":
     argumentParser = argparse.ArgumentParser()
-    argumentParser.add_argument('--language', '-l', type=str)
+    argumentParser.add_argument("--language", "-l", type=str)
     arguments = argumentParser.parse_args()
 
     GenerateBindings()
