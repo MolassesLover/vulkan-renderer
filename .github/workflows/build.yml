@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python', 'lua']
+        language: [ 'python']
 
 
     steps:
