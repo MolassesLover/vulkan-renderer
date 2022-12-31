@@ -3,8 +3,6 @@ name: Build
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 env:
   BUILD_TYPE: Release
@@ -33,16 +31,46 @@ jobs:
           libstb-dev \
           libvulkan-dev \
           python3 \
+          python3-pip \
+          uncrustify \
+        
+        sudo snap install go --classic
+        sudo snap install shfmt
+
+        pip install black cmakelang
+
+        npm install -g prettier
+
+        go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 
     - name: Build dependencies
       run: |
+        git clone --recursive https://github.com/Koihik/LuaFormatter.git
+        cd LuaFormatter
+        cmake -B bin -DCMAKE_BUILD_TYPE=Release
+        cmake --build bin -j$(nproc)
+        cd bin
+        sudo make install -j$(nproc)
+        cd ../../
+        rm -fr LuaFormatter
+
         cd libs/tinyobjloader
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)
         cd bin; sudo make install -j$(nproc)
         cd ../../../
 
+    - name: Format
+      run: |
+        python3 src/scripts/format.py
+
     - name: Build
       run: |
         cmake -B bin -DCMAKE_BUILD_TYPE=Release
         cmake --build bin -j$(nproc)
+
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        add_options: '-A'
+        commit_message: 'Automated changes!'
