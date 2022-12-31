@@ -1,12 +1,5 @@
 # Legal Information
 
-## About
-
-Original license files sourced from Git repositories, created by copyright holders
-other than me, can be found within the [`docs/txt/`](docs/txt) directory.
-
-----------------------------------------------------
-
 # [Vulkan-Tutorial-Advanced](https://github.com/Mori-TM/Vulkan-Tutorial-Advanced)
 
 ## MIT License
