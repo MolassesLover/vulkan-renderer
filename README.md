@@ -7,7 +7,7 @@ Molasses' Vulkan Renderer is licensed under the terms
 of the [MIT license](LICENSE-MIT.md).
 
 ## Dependencies
-> **Note**: The list of dependencies might be incomplete, sorry!
+> **Note**: The list of dependencies is currently be incomplete, sorry!
 
 | Dependency | [pkgs.org](https://pkgs.org/)                                                                                                                                            | [brew.sh](https://brew.sh/)                                                                                                                                                                              |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -27,7 +27,7 @@ From the project root directory, you can use CMake to build.
 > **Note**: If you are unfamiliar with `$(nproc)`; it is a command that prints out
 how many processing units are available. With the `-j` flag we tell CMake 
 to create jobs equal to the number provided by `$(nproc)`. If you are on XNU/macOS,
- `$(nproc)` is not available. You should use `sysctl -n hw.physicalcpu` instead!
+ `$(nproc)` is not available. You should use `$(sysctl -n hw.physicalcpu)` instead!
 
 Once CMake finishes, the binaries should be available in the directory
 equal to CMake's `-B` flag. In the case of the example commands, that should be

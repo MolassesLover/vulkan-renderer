@@ -76,6 +76,22 @@ def main():
             fileAmount=allFiles,
         )
         format(
+            command=f"prettier --write --parser css",
+            extension="css",
+            language="CSS",
+            sourcePath="docs/",
+            output=useOutput,
+            fileAmount=allFiles,
+        )
+        format(
+            command=f"prettier --write --parser css",
+            extension="html",
+            language="HTML",
+            sourcePath="docs/",
+            output=useOutput,
+            fileAmount=allFiles,
+        )
+        format(
             command=f"black",
             extension="py",
             language="Python",
