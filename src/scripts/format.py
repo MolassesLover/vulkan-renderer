@@ -84,7 +84,7 @@ def main():
             fileAmount=allFiles,
         )
         format(
-            command=f"lua-forma",
+            command=f"lua-format",
             extension="lua",
             language="Lua",
             sourcePath="src/",
