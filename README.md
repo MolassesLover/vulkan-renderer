@@ -7,7 +7,7 @@ Molasses' Vulkan Renderer is licensed under the terms
 of the [MIT license](LICENSE-MIT.md).
 
 ## Dependencies
-> **Note**: The list of dependencies is currently be incomplete, sorry!
+> **Note**: The list of dependencies is currently incomplete, sorry!
 
 | Dependency | [pkgs.org](https://pkgs.org/)                                                                                                                                            | [brew.sh](https://brew.sh/)                                                                                                                                                                              |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
