@@ -25,6 +25,73 @@
   min-height: 100vh;
 }
 
+.btn {
+  font-family: "Roboto", sans-serif;
+  font-size: max(1.66vh, 3.33vh);
+  color: #fff;
+  transition: all 0.5s;
+  position: relative;
+  margin: 1vh;
+  padding: 1vh;
+  width: 10vw;
+  align-items: center;
+  text-align: center;
+}
+
+.btn span {
+  transition: all 0.5s;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.5s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+  transform: scale(0.1, 1);
+}
+
+.btn:hover span {
+  letter-spacing: 2px;
+}
+
+.btn:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn:hover::after {
+  opacity: 0;
+  transform: scale(0.1, 1);
+}
+
+.topnav {
+  background-color: #2e3440;
+  overflow: hidden;
+}
+
 body {
   background-color: #2e3440;
 }

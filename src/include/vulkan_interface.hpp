@@ -1,4 +1,5 @@
 #include "TEMPORARYNAME.h"
+#include <GLFW/glfw3.h>
 
 const uint32_t WIDTH = 1280;
 const uint32_t HEIGHT = 720;
@@ -130,7 +131,7 @@ void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyF
     bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
     if (vkCreateBuffer(device, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create buffer!");
+        throw std::runtime_error("Failed to create buffer!");
     }
 
     VkMemoryRequirements memRequirements;
@@ -144,7 +145,7 @@ void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyF
     allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
     if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate buffer memory!");
+        throw std::runtime_error("Failed to allocate buffer memory!");
     }
 
     vkBindBufferMemory(device, buffer, bufferMemory, 0);
@@ -209,7 +210,7 @@ uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
         }
     }
 
-    throw std::runtime_error("failed to find suitable memory type!");
+    throw std::runtime_error("Failed to find suitable memory type!");
 }
 
 VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, uint32_t mipLevels) {
@@ -228,7 +229,7 @@ VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags a
     VkImageView imageView;
 
     if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create texture image view!");
+        throw std::runtime_error("Failed to create texture image view!");
     }
 
     return imageView;
@@ -252,7 +253,7 @@ void createImage(uint32_t width, uint32_t height, uint32_t mipLevels, VkSampleCo
     imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
     if (vkCreateImage(device, &imageInfo, nullptr, &image) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create image!");
+        throw std::runtime_error("Failed to create image!");
     }
 
     VkMemoryRequirements memRequirements;
@@ -266,7 +267,7 @@ void createImage(uint32_t width, uint32_t height, uint32_t mipLevels, VkSampleCo
     allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
     if (vkAllocateMemory(device, &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate image memory!");
+        throw std::runtime_error("Failed to allocate image memory!");
     }
 
     vkBindImageMemory(device, image, imageMemory, 0);
@@ -384,7 +385,7 @@ void createTextureImage(const char *path) {
     mipLevels = static_cast<uint32_t>(std::floor(std::log2(std::max(texWidth, texHeight)))) + 1;
 
     if (!pixels) {
-        throw std::runtime_error("failed to load texture image!");
+        throw std::runtime_error("Failed to load texture image!");
     }
 
     VkBuffer stagingBuffer;
@@ -531,7 +532,7 @@ void createTextureSampler() {
     samplerInfo.mipLodBias = 0.0f;
 
     if (vkCreateSampler(device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create texture sampler!");
+        throw std::runtime_error("Failed to create texture sampler!");
     }
 }
 
@@ -544,7 +545,7 @@ void createTextureDescriptorSet() {
     allocInfo.pSetLayouts = &textureDescriptorSetLayout;
 
     if (vkAllocateDescriptorSets(device, &allocInfo, &descriptorSet) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate descriptor sets!");
+        throw std::runtime_error("Failed to allocate descriptor sets!");
     }
 
     VkDescriptorImageInfo imageInfo{};
@@ -750,11 +751,16 @@ bool framebufferResized = false;
 void initWindow() {
     glfwInit();
 
+    // glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
     glfwSetWindowUserPointer(window, this);
     glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
+
+    // glfwSetWindowAttrib(window, GLFW_DECORATED, GLFW_FALSE);
+
+    // glfwShowWindow(window);
 }
 
 static void framebufferResizeCallback(GLFWwindow *window, int width, int height) {
@@ -927,7 +933,7 @@ void createInstance() {
     }
 
     if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create instance!");
+        throw std::runtime_error("Failed to create instance!");
     }
 }
 
@@ -947,13 +953,13 @@ void setupDebugMessenger() {
     populateDebugMessengerCreateInfo(createInfo);
 
     if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
-        throw std::runtime_error("failed to set up debug messenger!");
+        throw std::runtime_error("Failed to set up debug messenger!");
     }
 }
 
 void createSurface() {
     if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create window surface!");
+        throw std::runtime_error("Failed to create window surface!");
     }
 }
 
@@ -963,7 +969,7 @@ void pickPhysicalDevice() {
     vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
 
     if (deviceCount == 0) {
-        throw std::runtime_error("failed to find GPUs with Vulkan support!");
+        throw std::runtime_error("Failed to find GPUs with Vulkan support!");
     }
 
     std::vector<VkPhysicalDevice> devices(deviceCount);
@@ -979,7 +985,7 @@ void pickPhysicalDevice() {
     }
 
     if (physicalDevice == VK_NULL_HANDLE) {
-        throw std::runtime_error("failed to find a suitable GPU!");
+        throw std::runtime_error("Failed to find a suitable GPU!");
     }
 }
 
@@ -1024,7 +1030,7 @@ void createLogicalDevice() {
     }
 
     if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create logical device!");
+        throw std::runtime_error("Failed to create logical device!");
     }
 
     vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
@@ -1073,7 +1079,7 @@ void createSwapChain() {
     createInfo.clipped = VK_TRUE;
 
     if (vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create swap chain!");
+        throw std::runtime_error("Failed to create swap chain!");
     }
 
     vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
@@ -1170,7 +1176,7 @@ void createRenderPass() {
     renderPassInfo.pDependencies = &dependency;
 
     if (vkCreateRenderPass(device, &renderPassInfo, nullptr, &renderPass) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create render pass!");
+        throw std::runtime_error("Failed to create render pass!");
     }
 }
 
@@ -1197,13 +1203,13 @@ void createDescriptorSetLayout() {
     layoutInfo.pBindings = &uboLayoutBinding;
 
     if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &uniformDescriptorSetLayout) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create uniform descriptor set layout!");
+        throw std::runtime_error("Failed to create uniform descriptor set layout!");
     }
 
     layoutInfo.pBindings = &samplerLayoutBinding;
 
     if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &textureDescriptorSetLayout) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create texture descriptor set layout!");
+        throw std::runtime_error("Failed to create texture descriptor set layout!");
     }
 }
 
@@ -1324,7 +1330,7 @@ void createGraphicsPipeline() {
     pipelineLayoutInfo.pPushConstantRanges = &psRange;
 
     if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create pipeline layout!");
+        throw std::runtime_error("Failed to create pipeline layout!");
     }
 
     VkGraphicsPipelineCreateInfo pipelineInfo{};
@@ -1346,7 +1352,7 @@ void createGraphicsPipeline() {
     pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
     if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create graphics pipeline!");
+        throw std::runtime_error("Failed to create graphics pipeline!");
     }
 
     vkDestroyShaderModule(device, fragShaderModule, nullptr);
@@ -1373,7 +1379,7 @@ void createFramebuffers() {
         framebufferInfo.layers = 1;
 
         if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create framebuffer!");
+            throw std::runtime_error("Failed to create framebuffer!");
         }
     }
 }
@@ -1388,7 +1394,7 @@ void createCommandPool() {
     poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
 
     if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create graphics command pool!");
+        throw std::runtime_error("Failed to create graphics command pool!");
     }
 }
 
@@ -1418,7 +1424,7 @@ VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTil
         }
     }
 
-    throw std::runtime_error("failed to find supported format!");
+    throw std::runtime_error("Failed to find supported format!");
 }
 
 VkFormat findDepthFormat() {
@@ -1495,7 +1501,7 @@ void createDescriptorPool() {
     poolInfo.maxSets = static_cast<uint32_t>(MAX_FRAMES_IN_FLIGHT) + 3;
 
     if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create descriptor pool!");
+        throw std::runtime_error("Failed to create descriptor pool!");
     }
 }
 
@@ -1511,7 +1517,7 @@ void createDescriptorSets() {
     descriptorSets.resize(MAX_FRAMES_IN_FLIGHT);
 
     if (vkAllocateDescriptorSets(device, &allocInfo, descriptorSets.data()) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate descriptor sets!");
+        throw std::runtime_error("Failed to allocate descriptor sets!");
     }
 
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
@@ -1544,7 +1550,7 @@ void createCommandBuffers() {
     allocInfo.commandBufferCount = (uint32_t)commandBuffers.size();
 
     if (vkAllocateCommandBuffers(device, &allocInfo, commandBuffers.data()) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate command buffers!");
+        throw std::runtime_error("Failed to allocate command buffers!");
     }
 }
 
@@ -1555,7 +1561,7 @@ void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex) {
     beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
     if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) {
-        throw std::runtime_error("failed to begin recording command buffer!");
+        throw std::runtime_error("Failed to begin recording command buffer!");
     }
 
     VkRenderPassBeginInfo renderPassInfo{};
@@ -1612,7 +1618,7 @@ void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex) {
     vkCmdEndRenderPass(commandBuffer);
 
     if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
-        throw std::runtime_error("failed to record command buffer!");
+        throw std::runtime_error("Failed to record command buffer!");
     }
 }
 
@@ -1634,7 +1640,7 @@ void createSyncObjects() {
         if (vkCreateSemaphore(device, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]) != VK_SUCCESS ||
             vkCreateSemaphore(device, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS ||
             vkCreateFence(device, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create synchronization objects for a frame!");
+            throw std::runtime_error("Failed to create synchronization objects for a frame!");
         }
     }
 }
@@ -1669,7 +1675,7 @@ void drawFrame() {
         recreateSwapChain();
         return;
     } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-        throw std::runtime_error("failed to acquire swap chain image!");
+        throw std::runtime_error("Failed to acquire swap chain image!");
     }
 
     updateUniformBuffer(currentFrame);
@@ -1697,7 +1703,7 @@ void drawFrame() {
     submitInfo.pSignalSemaphores = signalSemaphores;
 
     if (vkQueueSubmit(graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
-        throw std::runtime_error("failed to submit draw command buffer!");
+        throw std::runtime_error("Failed to submit draw command buffer!");
     }
 
     VkPresentInfoKHR presentInfo{};
@@ -1720,7 +1726,7 @@ void drawFrame() {
         framebufferResized = false;
         recreateSwapChain();
     } else if (result != VK_SUCCESS) {
-        throw std::runtime_error("failed to present swap chain image!");
+        throw std::runtime_error("Failed to present swap chain image!");
     }
 
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
@@ -1736,7 +1742,7 @@ VkShaderModule createShaderModule(const std::vector<char>& code) {
     VkShaderModule shaderModule;
 
     if (vkCreateShaderModule(device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create shader module!");
+        throw std::runtime_error("Failed to create shader module!");
     }
 
     return shaderModule;
@@ -1925,7 +1931,7 @@ static std::vector<char> readFile(const std::string& filename) {
     std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
     if (!file.is_open()) {
-        throw std::runtime_error("failed to open file");
+        throw std::runtime_error("Failed to open file");
     }
 
     size_t fileSize = (size_t)file.tellg();

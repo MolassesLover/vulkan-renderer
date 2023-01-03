@@ -162,3 +162,6 @@ cython_debug/
 # Bindings
 src/bindings/vkRenderer_*.cpp
 src/bindings/TEMPORARYNAME.py
+
+# Temporary
+*[Tt][Mm][Pp]*
