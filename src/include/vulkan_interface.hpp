@@ -119,7 +119,7 @@ VkDescriptorPool descriptorPool;
 VkDescriptorSetLayout uniformDescriptorSetLayout;
 VkDescriptorSetLayout textureDescriptorSetLayout;
 
-class VulkanHelper
+class VulkanManager
 {
 public:
 void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
@@ -346,7 +346,7 @@ void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t 
 }
 };
 
-class TextureImage : VulkanHelper
+class TextureImage : VulkanManager
 {
 public:
 VkDescriptorSet descriptorSet;
@@ -568,7 +568,7 @@ void createTextureDescriptorSet() {
 }
 };
 
-class ModelLoader : VulkanHelper
+class ModelLoader : VulkanManager
 {
 public:
 std::vector<Vertex> vertices;
@@ -689,7 +689,7 @@ void createIndexBuffer() {
 }
 };
 
-class VulkanApplication : VulkanHelper
+class VulkanApplication : VulkanManager
 {
 public:
 void run() {
